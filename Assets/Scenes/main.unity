@@ -295,13 +295,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438158015}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0a09adaf86d71d4c880dd4a769e877c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bgPrefab: {fileID: 451027183661694090, guid: 818b17f4c571349468a0354384b75145, type: 3}
   maps: 0
+  mapXlimit: 0
+  mapYlimit: 0
 --- !u!4 &438158017
 Transform:
   m_ObjectHideFlags: 0
