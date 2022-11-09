@@ -26,6 +26,7 @@ public class bgGenerator : MonoBehaviour
     {
         int y = 4, x = 4;
         int roadY, roadX;
+        int rotater;
         for(int i = 0; i < n; i++)
         {
             int dir = Random.Range(0, 4);
@@ -35,7 +36,8 @@ public class bgGenerator : MonoBehaviour
                 map[y - 2][x] = 1;
                 roadY = y - 1;
                 roadX = x;
-                y -= 2;                
+                y -= 2;
+                rotater = 0;
             }
             else if (dir == 1)
             {
@@ -44,6 +46,7 @@ public class bgGenerator : MonoBehaviour
                 roadY = y;
                 roadX = x - 1;
                 x -= 2;
+                rotater = 1;
             }
             else if (dir == 2)
             {
@@ -52,20 +55,23 @@ public class bgGenerator : MonoBehaviour
                 roadY = y + 1;
                 roadX = x;
                 y += 2;
+                rotater = 0;
             }
             else
             {
                 map[y][x + 1] = 2;
-                map[y][x + 2] = 1;
-                x += 2;
+                map[y][x + 2] = 1;                
                 roadY = y;
                 roadX = x + 1;
+                x += 2;
+                rotater = 1;
             }
             GameObject G = Instantiate(bgPrefab);
             G.transform.position = new Vector3(x * 42, y * 42, 0);
             GameObject R = Instantiate(roadPrefab);
             R.transform.position = new Vector3(roadX * 42, roadY * 42, 0);
-            transform.Rotate(new Vector3(90, 0, 0));
+            if (rotater == 1)
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
         }
     }
 
