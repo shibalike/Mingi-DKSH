@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgPrefab: {fileID: 451027183661694090, guid: 818b17f4c571349468a0354384b75145, type: 3}
+  roadPrefab: {fileID: 863411804393881424, guid: d8dfe39659fb90345baea33582788a2d, type: 3}
   n: 10
 --- !u!4 &438158017
 Transform:
