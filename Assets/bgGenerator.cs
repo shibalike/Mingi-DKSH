@@ -4,56 +4,8 @@ using UnityEngine;
 
 public class bgGenerator : MonoBehaviour
 {
-    /*public int maps; //·£´ý »ý¼º È½¼ö
-    public float mapXlimit;
-    public float mapYlimit;
-    float mapX; //¸Ê xÁÂÇ¥
-    float mapY; //¸Ê yÁÂÇ¥
-    float[] mapXhistory;
-    float[] mapYhistory;
-    void Start()
-    {
-        maps = 15;
-        maplimit = 9;
-        mapXhistory = new float[maps];
-        mapYhistory = new float[maps];
-        mapArrange();
-    }
- 
-    void mapArrange() //¸Ê ¹è¿­
-    {
-        for (int i = 0; i < maps; i++)
-        {
-            int check = 0;
-            int mapXmaker = { Random.Range(1, maplimit * 3) } % 10 + 1;
-            int mapYmaker = { Random.Range(1, maplimit * 3) } % 10 + 1;
-            mapX = mapXmaker * 42
-            mapY = mapYmaker * 42
-            mapXhistory[i] = mapX;
-            mapYhistory[i] = mapY;
-           
-            for(int j = 0; j < i; j++)
-            {
-                if(Mathf.Abs(mapX - mapXhistory[j]) <= 50 && Mathf.Abs(mapY - mapYhistory[j]) <= 50)
-                {
-                    check = 1;
-                    break;
-                }
-
-            }
-
-            if (check == 1)
-            {
-                i--;
-                continue;
-            }
-            GameObject G = Instantiate(bgPrefab);            
-            G.transform.position = new Vector3(mapX, mapY, i);
-        }
-
-    }*/
-
     public GameObject bgPrefab;
+    public GameObject roadPrefab;
     public int n;
     int[][] map;
     void Start ()
@@ -67,6 +19,54 @@ public class bgGenerator : MonoBehaviour
         }
         map[4][4] = 1; //0Àº ºó °÷, 1Àº ¹æ, 2´Â ±æ
         mapArrange2();
+    }
+
+    
+    void mapArrange2()
+    {
+        int y = 4, x = 4;
+        int roadY, roadX;
+        for(int i = 0; i < n; i++)
+        {
+            int dir = Random.Range(0, 4);
+            if (dir == 0)
+            {
+                map[y - 1][x] = 2;
+                map[y - 2][x] = 1;
+                roadY = y - 1;
+                roadX = x;
+                y -= 2;                
+            }
+            else if (dir == 1)
+            {
+                map[y][x - 1] = 2;
+                map[y][x - 2] = 1;
+                roadY = y;
+                roadX = x - 1;
+                x -= 2;
+            }
+            else if (dir == 2)
+            {
+                map[y + 1][x] = 2;
+                map[y + 2][x] = 1;
+                roadY = y + 1;
+                roadX = x;
+                y += 2;
+            }
+            else
+            {
+                map[y][x + 1] = 2;
+                map[y][x + 2] = 1;
+                x += 2;
+                roadY = y;
+                roadX = x + 1;
+            }
+            GameObject G = Instantiate(bgPrefab);
+            G.transform.position = new Vector3(x * 42, y * 42, 0);
+            GameObject R = Instantiate(roadPrefab);
+            R.transform.position = new Vector3(roadX * 42, roadY * 42, 0);
+            transform.Rotate(new Vector3(90, 0, 0));
+        }
     }
 
     void mapArrange()
@@ -86,45 +86,58 @@ public class bgGenerator : MonoBehaviour
                 i--;
                 continue;
             }
-            
+
             GameObject G = Instantiate(bgPrefab);
             G.transform.position = new Vector3(mapX * 42, mapY * 42, 0);
         }
     }
 
-    void mapArrange2()
-    {
-        int y = 4, x = 4;
-        for(int i = 0; i < n; i++)
-        {
-            int dir = Random.Range(0, 4);
-            if (dir == 0)
-            {
-                map[y - 1][x] = 2;
-                map[y - 2][x] = 1;
-                y -= 2;
-            }
-            else if (dir == 1)
-            {
-                map[y][x - 1] = 2;
-                map[y][x - 1] = 1;
-                x -= 2;
-            }
-            else if (dir == 2)
-            {
-                map[y + 1][x] = 2;
-                map[y + 2][x] = 1;
-                y += 2;
-            }
-            else
-            {
-                map[y][x + 1] = 2;
-                map[y][x + 2] = 1;
-                x += 2;
-            }
-            GameObject G = Instantiate(bgPrefab);
-            G.transform.position = new Vector3(x * 42, y * 42, 0);
+    /*public int maps; //·£´ý »ý¼º È½¼ö
+   public float mapXlimit;
+   public float mapYlimit;
+   float mapX; //¸Ê xÁÂÇ¥
+   float mapY; //¸Ê yÁÂÇ¥
+   float[] mapXhistory;
+   float[] mapYhistory;
+   void Start()
+   {
+       maps = 15;
+       maplimit = 9;
+       mapXhistory = new float[maps];
+       mapYhistory = new float[maps];
+       mapArrange();
+   }
 
-        }
-    }
+   void mapArrange() //¸Ê ¹è¿­
+   {
+       for (int i = 0; i < maps; i++)
+       {
+           int check = 0;
+           int mapXmaker = { Random.Range(1, maplimit * 3) } % 10 + 1;
+           int mapYmaker = { Random.Range(1, maplimit * 3) } % 10 + 1;
+           mapX = mapXmaker * 42
+           mapY = mapYmaker * 42
+           mapXhistory[i] = mapX;
+           mapYhistory[i] = mapY;
+
+           for(int j = 0; j < i; j++)
+           {
+               if(Mathf.Abs(mapX - mapXhistory[j]) <= 50 && Mathf.Abs(mapY - mapYhistory[j]) <= 50)
+               {
+                   check = 1;
+                   break;
+               }
+
+           }
+
+           if (check == 1)
+           {
+               i--;
+               continue;
+           }
+           GameObject G = Instantiate(bgPrefab);            
+           G.transform.position = new Vector3(mapX, mapY, i);
+       }
+
+   }*/
 }
