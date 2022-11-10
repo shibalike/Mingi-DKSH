@@ -5,7 +5,8 @@ using UnityEngine;
 public class bgGenerator : MonoBehaviour
 {
     public GameObject bgPrefab;
-    public GameObject roadPrefab;
+    public GameObject road1Prefab;
+    public GameObject road2Prefab;
     public int n;
     int[][] map;
     void Start ()
@@ -67,11 +68,19 @@ public class bgGenerator : MonoBehaviour
                 rotater = 1;
             }
             GameObject G = Instantiate(bgPrefab);
-            G.transform.position = new Vector3(x * 42, y * 42, 0);
-            GameObject R = Instantiate(roadPrefab);
-            R.transform.position = new Vector3(roadX * 42, roadY * 42, 0);
-            if (rotater == 1)
-                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+            G.transform.position = new Vector3(x * 43, y * 43, 0);
+            
+            
+            if (rotater == 0)
+            {
+                GameObject R1 = Instantiate(road1Prefab);
+                R1.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
+            }
+            else
+            {
+                GameObject R2 = Instantiate(road2Prefab);
+                R2.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
+            }
         }
     }
 
