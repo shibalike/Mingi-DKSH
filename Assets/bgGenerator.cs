@@ -83,7 +83,7 @@ public class bgGenerator : MonoBehaviour
                 land.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
             }
         }
-        player.transform.Translate = new Vector3(x * 43, y * 43, 0);
+        
     }
 
     void mapArrange()
