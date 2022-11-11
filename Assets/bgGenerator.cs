@@ -5,8 +5,9 @@ using UnityEngine;
 public class bgGenerator : MonoBehaviour
 {
     public GameObject bgPrefab;
-    public GameObject road1Prefab;
-    public GameObject road2Prefab;
+    public GameObject vertical;
+    public GameObject landscape;
+    public GameObject player; 
     public int n;
     int[][] map;
     void Start ()
@@ -18,7 +19,7 @@ public class bgGenerator : MonoBehaviour
             for(int j = 0; j < 9; j++)
                 map[i][j] = 0;
         }
-        map[4][4] = 1; //0은 빈 곳, 1은 방, 2는 길
+       //0은 빈 곳, 1은 방, 2는 길
         mapArrange2();
     }
 
@@ -73,15 +74,16 @@ public class bgGenerator : MonoBehaviour
             
             if (rotater == 0)
             {
-                GameObject R1 = Instantiate(road1Prefab);
-                R1.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
+                GameObject vert = Instantiate(vertical);
+                vert.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
             }
             else
             {
-                GameObject R2 = Instantiate(road2Prefab);
-                R2.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
+                GameObject land = Instantiate(landscape);
+                land.transform.position = new Vector3(roadX * 43, roadY * 43, 0);
             }
         }
+        player.transform.Translate = new Vector3(x * 43, y * 43, 0);
     }
 
     void mapArrange()
