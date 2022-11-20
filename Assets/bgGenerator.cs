@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class bgGenerator : MonoBehaviour
 {
-    public GameObject wallPrefab;
-    public GameObject[] bgPrefab;
-    public GameObject vertical;
-    public GameObject landscape;
-    public int N;
-    int[][] map;
+    public GameObject wallPrefab; //방틀
+    public GameObject[] bgPrefab; //방 디자인
+    public GameObject vertical; //길(세로
+    public GameObject landscape; //길(가로
+    public int N; //횟수
+    int[][] map; //겹치는지 확인 용도 
+    int mapRand = 0; //방 디자인 결정자
     void Start ()
     {
         map = new int[100][]; //맵 100 * 100 크기의 2차원 배열 생성
@@ -20,9 +21,12 @@ public class bgGenerator : MonoBehaviour
                 map[i][j] = 0;
         }
         //0은 빈 곳, 1은 방, 2는 길
-        map[50][50] = 1;
+        map[50][50] = 1; //시작방
         GameObject G = Instantiate(wallPrefab);
         G.transform.position = new Vector3(2150, 2150, 0);
+        mapRand = Random.Range(0, 6); 
+        GameObject BG = Instantiate(bgPrefab[mapRand]);
+        BG.transform.position = new Vector3(2150, 2150, 0);
         mapArrange();
         
     }
@@ -32,11 +36,20 @@ public class bgGenerator : MonoBehaviour
         int y = 50, x = 50;
         int roadY, roadX;
         int roadRotater;
-        int mapRand;
+        int prior_mapRand = -1;
+        int priorDir = -1; //이전 방향
         for (int i = 0; i < N; i++)
         {
             int dir = Random.Range(0, 4);
+
             mapRand = Random.Range(0, 6);
+            if(mapRand == prior_mapRand)
+            {
+                mapRand = Random.Range(0, 6);
+                prior_mapRand= mapRand;
+            }
+            else prior_mapRand = mapRand;
+
             if (dir == 0)
             {
                 map[y - 1][x] = 2;
@@ -53,7 +66,7 @@ public class bgGenerator : MonoBehaviour
                 roadY = y;
                 roadX = x - 1;
                 x -= 2;
-                roadRotater = 1;
+                roadRotater = 1;    
             }
             else if (dir == 2)
             {
@@ -93,6 +106,18 @@ public class bgGenerator : MonoBehaviour
                 }
                 map[x][y] = 1;
                 map[roadX][roadY] = 2;
+                for(int j = 0; j < 4; j++)
+                {
+                    if(j == dir || j == priorDir)
+                    {
+                        if (j == 0)
+                        {
+                            GameObject obj1 = room.transform.Find("fakeWall(land (1)").gameObject; // Object의 이름을 찾음. 가장 처음에 나오는 Object를 반환.
+                            obj1.SetActive(false);
+                        }
+                    }
+                }
+                priorDir = dir;
             }
             else
             {
@@ -120,4 +145,4 @@ public class bgGenerator : MonoBehaviour
             }
         }
     }
-}
+} 
