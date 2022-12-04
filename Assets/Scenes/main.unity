@@ -311,7 +311,7 @@ MonoBehaviour:
   - {fileID: 8654711638837090280, guid: c9469a41200e3704ba8ec5c0daeaecf1, type: 3}
   vertical: {fileID: 5136428286001146006, guid: ff6abac5d4b50b34e817c4a326dd6913, type: 3}
   landscape: {fileID: 2295124750078950841, guid: 9606c29db1887734ca7472979b7299b5, type: 3}
-  N: 3
+  N: 2
 --- !u!4 &438158017
 Transform:
   m_ObjectHideFlags: 0

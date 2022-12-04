@@ -27,22 +27,23 @@ public class bgGenerator : MonoBehaviour
         mapRand = Random.Range(0, 6); 
         GameObject BG = Instantiate(bgPrefab[mapRand]);
         BG.transform.position = new Vector3(2150, 2150, 0);
-        mapArrange();
+        mapArrange(room);
     }
 
-    void mapArrange()
+    void mapArrange(GameObject A)
     {
         int y = 50, x = 50;
         int roadY, roadX;
         int roadRotater;
         int prior_mapRand = -1;
         int priorDir = -1; //이전 방향
-        GameObject priorRoom = null;   
+        GameObject priorRoom = A; //0번째 방
+        
         for (int i = 0; i < N; i++)
         {
             int dir = Random.Range(0, 4); // 방향 정하기
 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++) //진행 방향 벽 제거 
             {
                 if (j == dir)
                 {
@@ -67,7 +68,7 @@ public class bgGenerator : MonoBehaviour
                         obj1.SetActive(false);
                     }
                 }
-            } //현재 방 벽 제거
+            }
             
             GameObject room = Instantiate(wallPrefab); //방 생성
 
@@ -112,7 +113,7 @@ public class bgGenerator : MonoBehaviour
                         obj1.SetActive(false);
                     }
                 }
-            } //다음방 벽 제거
+            }
 
             if (dir == 0) //방향이 위일때
             {
